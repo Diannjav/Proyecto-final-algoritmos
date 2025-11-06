@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio C++ - Dianne Garcia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            min-height: 100vh;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .info-header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00ff88;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+            }
+            to {
+                box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
+            }
+        }
+
+        .student-name {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00ff88;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.8);
+            margin-bottom: 10px;
+        }
+
+        .student-info {
+            font-size: 1.2em;
+            color: #00d9ff;
+            margin: 5px 0;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+        }
+
+        .university-info {
+            font-size: 1em;
+            color: #ff00ff;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid #00ff88;
+            text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00ff88, #00d9ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #00d9ff;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+        }
+
+        .upload-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00d9ff;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.3);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .upload-section h2 {
+            color: #00ff88;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .file-counter {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff00ff 0%, #00ff88 100%);
+            color: #0a0a0a;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-left: 15px;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+        }
+
+        .upload-area {
+            border: 3px dashed #00ff88;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            background: rgba(0, 255, 136, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-area:hover {
+            border-color: #ff00ff;
+            background: rgba(255, 0, 255, 0.1);
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .upload-area.dragover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: #00d9ff;
+            box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+            color: #0a0a0a;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.8);
+            background: linear-gradient(135deg, #ff00ff 0%, #00ff88 100%);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 2px solid #00d9ff;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.5);
+            border-color: #00ff88;
+        }
+
+        .project-card.predefined {
+            border-color: #ff00ff;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .project-card.predefined:hover {
+            border-color: #00ff88;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .project-title-area {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .cpp-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0a0a0a;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+        }
+
+        .project-card.predefined .cpp-icon {
+            background: linear-gradient(135deg, #ff00ff 0%, #00d9ff 100%);
+        }
+
+        .project-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #00ff88;
+            word-break: break-word;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+        }
+
+        .project-badge {
+            display: inline-block;
+            background: #ff00ff;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            margin-left: 10px;
+            box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+
+        .project-code {
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #00ff88;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 15px 0;
+            color: #00d9ff;
+            box-shadow: inset 0 0 10px rgba(0, 255, 136, 0.1);
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+            color: #0a0a0a;
+            flex: 1;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .btn-download:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 136, 0.6);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff0080 100%);
+            color: white;
+            flex: 1;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+        }
+
+        .btn-delete:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(255, 0, 255, 0.6);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff00ff 0%, #00ff88 100%);
+        }
+
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            animation: slideInAlert 0.3s ease-out;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+            color: #0a0a0a;
+        }
+
+        .alert-error {
+            background: linear-gradient(135deg, #ff00ff 0%, #ff0080 100%);
+        }
+
+        @keyframes slideInAlert {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="info-header">
+            <div class="student-name">Dianne Patricia Garcia Javier</div>
+            <div class="student-info">Carnet: 2790-25-29933</div>
+            <div class="university-info">
+                UNIVERSIDAD MARIANO GÁLVEZ DE GUATEMALA<br>
+                SEDE RETALHULEU<br>
+                FACULTAD DE INGENIERÍA
+            </div>
+        </div>
+
+        <header>
+            <h1>Portafolio C++</h1>
+            <p class="subtitle">Colección de mis proyectos y código</p>
+        </header>
+
+        <div class="upload-section">
+            <h2>Subir Nuevo Proyecto <span class="file-counter" id="fileCounter">7 proyectos</span></h2>
+            <div class="upload-area" id="uploadArea">
+                <p style="font-size: 1.2em; margin-bottom: 10px; color: #00ff88;">Arrastra tu archivo .cpp aquí</p>
+                <p style="color: #00d9ff;">o</p>
+                <button class="upload-btn" id="selectFileBtn">
+                    Seleccionar Archivo
+                </button>
+                <input type="file" id="fileInput" accept=".cpp,.h,.hpp" multiple>
+            </div>
+        </div>
+
+        <div id="projectsContainer">
+            <div class="projects-grid"></div>
+        </div>
+    </div>
+
+    <script>
+        const predefinedProjects = [
+            {
+                id: 'pre-1',
+                name: "algoritmosejer1.cpp",
+                code: `// ============================================================================
+// EJERCICIO 1: CONVERTIR DIAS A AÑOS, MESES, SEMANAS Y DIAS
+// ============================================================================
+
+// CON WHILE
+#include <iostream>
+using namespace std;
+
+int main() {
+    int dias_totales;
+    int anios, meses, semanas, dias_restantes;
+    
+    cout << "Ingrese el numero de dias: ";
+    cin >> dias_totales;
+    
+    int dias_temp = dias_totales;
+    
+    anios = 0;
+    while(dias_temp >= 365) {
+        anios++;
+        dias_temp -= 365;
+    }
+    
+    meses = 0;
+    while(dias_temp >= 30) {
+        meses++;
+        dias_temp -= 30;
+    }
+    
+    semanas = 0;
+    while(dias_temp >= 7) {
+        semanas++;
+        dias_temp -= 7;
+    }
+    
+    dias_restantes = dias_temp;
+    
+    cout << "\\n-------- CON WHILE -------" << endl;
+    cout << dias_totales << " dias equivalen a:" << endl;
+    cout << anios << " anios" << endl;
+    cout << meses << " meses" << endl;
+    cout << semanas << " semanas" << endl;
+    cout << dias_restantes << " dias" << endl;
+    
+    return 0;
+}`,
+                date: new Date().toLocaleDateString(),
+                isPredefined: true
+            },
+            {
+                id: 'pre-2',
+                name: "algoritmosejer1DoWhile.cpp",
+                code: `// CON DO-WHILE
+#include <iostream>
+using namespace std;
+
+int main() {
+    int dias_totales;
+    int anos, meses, semanas, dias_restantes;
+    
+    cout << "Ingrese el numero de dias: ";
+    cin >> dias_totales;
+    
+    int dias_temp = dias_totales;
+    
+    anos = 0;
+    do {
+        if(dias_temp >= 365) {
+            anos++;
+            dias_temp -= 365;
+        }
+    } while(dias_temp >= 365);
+    
+    meses = 0;
+    do {
+        if(dias_temp >= 30) {
+            meses++;
+            dias_temp -= 30;
+        }
+    } while(dias_temp >= 30);
+    
+    semanas = 0;
+    do {
+        if(dias_temp >= 7) {
+            semanas++;
+            dias_temp -= 7;
+        }
+    } while(dias_temp >= 7);
+    
+    dias_restantes = dias_temp;
+    
+    cout << "\\n------ CON DO-WHILE ------" << endl;
+    cout << dias_totales << " dias equivalen a:" << endl;
+    cout << anos << " anios" << endl;
+    cout << meses << " meses" << endl;
+    cout << semanas << " semanas" << endl;
+    cout << dias_restantes << " dias" << endl;
+    
+    return 0;
+}`,
+                date: new Date().toLocaleDateString(),
+                isPredefined: true
+            },
+            {
+                id: 'pre-3',
+                name: "algoritmosejer2.cpp",
+                code: `// ============================================================================
+// EJERCICIO 2: FIZZBUZZ (1 AL 100)
+// ============================================================================
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    for(int i = 1; i <= 100; i++) {
+        if(i % 3 == 0 && i % 5 == 0) {
+            cout << "fizzbuzz" << endl;
+        }
+        else if(i % 3 == 0) {
+            cout << "fizz" << endl;
+        }
+        else if(i % 5 == 0) {
+            cout << "buzz" << endl;
+        }
+        else {
+            cout << i << endl;
+        }
+    }
+    
+    return 0;
+}`,
+                date: new Date().toLocaleDateString(),
+                isPredefined: true
+            },
+            {
+                id: 'pre-4',
+                name: "algoritmosejer3.cpp",
+                code: `// ============================================================================
+// EJERCICIO 3: VERIFICAR SI DOS PALABRAS SON ANAGRAMAS
+// ============================================================================
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool sonAnagramas(string palabra1, string palabra2) {
+    if(palabra1 == palabra2) {
+        return false;
+    }
+    
+    if(palabra1.length() != palabra2.length()) {
+        return false;
+    }
+    
+    int frecuencia1[256] = {0};
+    int frecuencia2[256] = {0};
+    
+    for(int i = 0; i < palabra1.length(); i++) {
+        frecuencia1[palabra1[i]]++;
+    }
+    
+    for(int i = 0; i < palabra2.length(); i++) {
+        frecuencia2[palabra2[i]]++;
+    }
+    
+    for(int i = 0; i < 256; i++) {
+        if(frecuencia1[i] != frecuencia2[i]) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+int main() {
+    string palabra1, palabra2;
+    
+    cout << "Ingrese la primera palabra: ";
+    cin >> palabra1;
+    
+    cout << "Ingrese la segunda palabra: ";
+    cin >> palabra2;
+   
+    if(sonAnagramas(palabra1, palabra2)) {
+        cout << "Las palabras SI son anagramas" << endl;
+    } else {
+        cout << "Las palabras NO son anagramas" << endl;
+    }
+    
+    return 0;
+}`,
+                date: new Date().toLocaleDateString(),
+                isPredefined: true
+            },
+            {
+                id: 'pre-5',
+                name: "algoritmosejer4.cpp",
+                code: `// ============================================================================
+// EJERCICIO 4: CONVERTIR DECIMAL A BINARIO
+// ============================================================================
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+    int decimal;
+    string binario = "";
+    
+    cout << "Ingrese un numero decimal: ";
+    cin >> decimal;
+    
+    if(decimal == 0) {
+        binario = "0";
+    } else {
+        int numero_original = decimal;
+        
+        while(decimal > 0) {
+            int resto = decimal % 2;
+            binario = char('0' + resto) + binario;
+            decimal = decimal / 2;
+        }
+        
+        cout << "El numero " << numero_original << " en binario es: " << binario << endl;
+    }
+    
+    return 0;
+}`,
+                date: new Date().toLocaleDateString(),
+                isPredefined: true
+            },
+            {
+                id: 'pre-6',
+                name: "algoritmosejer5.cpp",
+                code: `// ============================================================================
+// EJERCICIO 5: VERIFICAR SI UNA FRASE ES PALINDROMO
+// ============================================================================
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool esPalindromo(string texto) {
+    string texto_limpio = "";
+    
+    for(int i = 0; i < texto.length(); i++) {
+        char caracter = texto[i];
+        
+        if((caracter >= 'a' && caracter <= 'z') || (caracter >= 'A' && caracter <= 'Z')) {
+            if(caracter >= 'A' && caracter <= 'Z') {
+                caracter = caracter + 32;
+            }
+            texto_limpio += caracter;
+        }
+    }
+    
+    int inicio = 0;
+    int fin = texto_limpio.length() - 1;
+    
+    while(inicio < fin) {
+        if(texto_limpio[inicio] != texto_limpio[fin]) {
+            return false;
+        }
+        inicio++;
+        fin--;
+    }
+    
+    return true;
+}
+
+int main() {
+    string texto;
+    
+    cout << "Ingrese un texto: ";
+    getline(cin, texto);
+    
+    if(esPalindromo(texto)) {
+        cout << "El texto SI es un palindromo" << endl;
+    } else {
+        cout << "El texto NO es un palindromo" << endl;
+    }
+    
+    return 0;
+}`,
+                date: new Date().toLocaleDateString(),
+                isPredefined: true
+            },
+            {
+                id: 'pre-7',
+                name: "algoritmosejer6.cpp",
+                code: `// ============================================================================
+// EJERCICIO 6: MAXIMO COMUN DIVISOR (MCD) Y MINIMO COMUN MULTIPLO (MCM)
+// ============================================================================
+
+#include <iostream>
+using namespace std;
+
+int calcularMCD(int a, int b) {
+    while(b != 0) {
+        int residuo = a % b;
+        a = b;
+        b = residuo;
+    }
+    
+    return a;
+}
+
+int calcularMCM(int a, int b) {
+    int mcd = calcularMCD(a, b);
+    int mcm = (a * b) / mcd;
+    
+    return mcm;
+}
+
+int main() {
+    int numero1, numero2;
+    
+    cout << "Ingrese el primer numero: ";
+    cin >> numero1;
+    
+    cout << "Ingrese el segundo numero: ";
+    cin >> numero2;
+    
+    int mcd = calcularMCD(numero1, numero2);
+    int mcm = calcularMCM(numero1, numero2);
+    
+    cout << "\\n--- RESULTADOS ---" << endl;
+    cout << "MCD de " << numero1 << " y " << numero2 << " es: " << mcd << endl;
+    cout << "MCM de " << numero1 << " y " << numero2 << " es: " << mcm << endl;
+    
+    return 0;
+}`,
+                date: new Date().toLocaleDateString(),
+                isPredefined: true
+            }
+        ];
+
+        let userProjects = [];
+
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const projectsContainer = document.getElementById('projectsContainer');
+        const fileCounter = document.getElementById('fileCounter');
+
+        selectFileBtn.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+
+        uploadArea.addEventListener('dragleave', function() {
+            uploadArea.classList.remove('dragover');
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', function(e) {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.name.endsWith('.cpp') || file.name.endsWith('.h') || file.name.endsWith('.hpp')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const project = {
+                            id: Date.now() + Math.random(),
+                            name: file.name,
+                            code: e.target.result,
+                            date: new Date().toLocaleDateString(),
+                            isPredefined: false
+                        };
+                        userProjects.push(project);
+                        renderProjects();
+                        showAlert('Archivo subido: ' + file.name, 'success');
+                    };
+                    reader.readAsText(file);
+                } else {
+                    showAlert('Solo archivos .cpp, .h o .hpp permitidos', 'error');
+                }
+            }
+        }
+
+        function updateFileCounter() {
+            const total = predefinedProjects.length + userProjects.length;
+            fileCounter.textContent = total + ' proyectos';
+        }
+
+        function renderProjects() {
+            updateFileCounter();
+            const grid = projectsContainer.querySelector('.projects-grid');
+            grid.innerHTML = '';
+
+            const allProjects = [...predefinedProjects, ...userProjects];
+
+            allProjects.forEach(function(project) {
+                const card = document.createElement('div');
+                card.className = project.isPredefined ? 'project-card predefined' : 'project-card';
+                
+                const codePreview = project.code.substring(0, 300);
+                const hasMore = project.code.length > 300 ? '...' : '';
+                
+                const badge = project.isPredefined ? '<span class="project-badge">Original</span>' : '<span class="project-badge" style="background: #00ff88;">Nuevo</span>';
+                
+                const deleteBtn = project.isPredefined ? '' : '<button class="btn btn-delete" data-id="' + project.id + '">Eliminar</button>';
+                
+                card.innerHTML = '<div class="project-header"><div class="project-title-area"><div class="cpp-icon">C++</div><div><div class="project-name">' + escapeHtml(project.name) + badge + '</div><small style="color: #00d9ff;">' + project.date + '</small></div></div></div><div class="project-code">' + escapeHtml(codePreview) + hasMore + '</div><div class="project-actions"><button class="btn btn-download" data-id="' + project.id + '">Descargar</button>' + deleteBtn + '</div>';
+                
+                grid.appendChild(card);
+            });
+
+            const downloadButtons = document.querySelectorAll('.btn-download');
+            downloadButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    downloadProject(id);
+                });
+            });
+
+            const deleteButtons = document.querySelectorAll('.btn-delete');
+            deleteButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const id = parseFloat(this.getAttribute('data-id'));
+                    deleteProject(id);
+                });
+            });
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function downloadProject(id) {
+            const allProjects = [...predefinedProjects, ...userProjects];
+            const project = allProjects.find(function(p) {
+                return p.id == id;
+            });
+            
+            if (project) {
+                const blob = new Blob([project.code], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = project.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showAlert('Descargando: ' + project.name, 'success');
+            }
+        }
+
+        function deleteProject(id) {
+            if (confirm('¿Estas segura de que quieres eliminar este proyecto?')) {
+                userProjects = userProjects.filter(function(p) {
+                    return p.id !== id;
+                });
+                renderProjects();
+                showAlert('Proyecto eliminado', 'success');
+            }
+        }
+
+        function showAlert(message, type) {
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-' + type;
+            alert.textContent = message;
+            document.body.appendChild(alert);
+
+            setTimeout(function() {
+                alert.remove();
+            }, 3000);
+        }
+
+        renderProjects();
+    </script>
+</body>
+</html>
